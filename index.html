@@ -4,11 +4,14 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Password Generator</title>
+        <link rel="stylesheet" href="https://necolas.github.io/normalize.css/latest/normalize.css">
+        <link rel="stylesheet" href="https://meyerweb.com/eric/tools/css/reset/reset.css">
         <link rel="stylesheet" href="style.css">
     </head>
     <body>
         <main>
             <div class="container">
+                <h1>Password Generator</h1>
                 <div class="program-container">
                     <input type="text" id="generated-password" readonly>
                     <div class="button-container">
@@ -23,10 +26,17 @@
             document.getElementById("copy-button").addEventListener("click", copy)
 
             function generate() {
-                const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
-                let shuffledCharacters = characters.split("").sort(() => Math.random() - 0.5).join("");
-                let password = shuffledCharacters.substring(0, 12);
+                const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+                let password = "";
 
+                while (password.length < 12) {
+                    const character = characters.charAt(Math.floor(Math.random() * characters.length));
+                    if (!password.includes(character)) {
+                        password += character;
+                    }
+                }
+
+                password = password.slice(0, 6) + "-" + password.slice(6);
                 document.getElementById("generated-password").value = password;
             }
 
