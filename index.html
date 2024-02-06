@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Password Generator</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <main>
+            <div class="container">
+                <div class="program-container">
+                    <input type="text" id="generated-password" readonly>
+                    <div class="button-container">
+                        <input type="button" id="generate-button" value="Generate">
+                        <input type="button" id="copy-button" value="Copy">
+                    </div>
+                </div>
+            </div>
+        </main>
+        <script>
+            document.getElementById("generate-button").addEventListener("click", generate)
+            document.getElementById("copy-button").addEventListener("click", copy)
+
+            function generate() {
+                const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+                let shuffledCharacters = characters.split("").sort(() => Math.random() - 0.5).join("");
+                let password = shuffledCharacters.substring(0, 12);
+
+                document.getElementById("generated-password").value = password;
+            }
+
+            function copy() {
+                const password = document.getElementById("generated-password")
+                password.select();
+                document.execCommand("copy");
+            }
+        </script>
+    </body>
+</html>
