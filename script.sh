@@ -1,31 +1,49 @@
 #!/bin/bash
 
-# Se crean los directorios
-mkdir -p Respaldo
-mkdir -p BaseDatosI/IParcial
-mkdir -p PrograI/Examenes
-mkdir -p PrograII/Ejercicios
-mkdir -p Negocios/Ejemplos
-mkdir -p Artificial
+# Función para crear directorios
+function crear_directorio() {
+  directorio="$1"
+  if ! [[ -d "$directorio" ]]; then
+    mkdir -p "$directorio"
+  fi
+}
 
-# Se crean los archivos
-touch BaseDatosI/IParcial/Manual.sql
-touch PrograI/Examenes/PrimerP.doc
-touch PrograII/Ejercicios/Guia1.doc
-touch Negocios/Ejemplos/Ejemplos.gwz
-touch Artificial/Evaluaciones.xls
+# Función para crear archivos
+function crear_archivo() {
+  archivo="$1"
+  if ! [[ -f "$archivo" ]]; then
+    touch "$archivo"
+  fi
+}
 
-# Se mueve la carpeta "Artificial" a "Respaldo"
+# Crear directorios
+crear_directorio Respaldo
+crear_directorio BaseDatosI/IParcial
+crear_directorio PrograI/Examenes
+crear_directorio PrograII/Ejercicios
+crear_directorio Negocios/Ejemplos
+crear_directorio Artificial
+
+# Crear archivos
+crear_archivo BaseDatosI/IParcial/Manual.sql
+crear_archivo PrograI/Examenes/PrimerParcial.doc
+crear_archivo PrograII/Ejercicios/Guia1.doc
+crear_archivo Negocios/Ejemplos/Ejemplos.gwz
+crear_archivo Artificial/Evaluaciones.xls
+
+# Mover carpeta "Artificial" a "Respaldo"
 mv Artificial Respaldo/
 
-# Se agrupa la carpeta "Artificial"
+# Agrupar carpeta "Artificial"
 tar -cvf Respaldo/Artificial.tar -C Respaldo/Artificial .
 
-# Se comprime el archivo agrupado
-zip Respaldo/Artificial.tar.zip Respaldo/Artificial.tar
+# Comprimir archivo agrupado
+zip -r Respaldo/Artificial.tar.zip Respaldo/Artificial.tar
 
-# Se elimina la carpeta "BaseDatosI" y sus archivos
+# Eliminar carpeta "BaseDatosI"
 rm -r BaseDatosI
 
-# Se renombra el documento "PrimerP.doc" a "PrimerParcial.doc"
-mv PrograI/Examenes/PrimerP.doc PrograI/Examenes/PrimerParcial.doc
+# No se necesita renombrar archivo "PrimerParcial.doc" ya que se crea con ese nombre.
+
+# Mensaje de finalización
+echo "**Script finalizado**"
