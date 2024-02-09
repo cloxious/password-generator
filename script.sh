@@ -19,7 +19,7 @@ touch Artificial/Evaluaciones.xls
 mv Artificial Respaldo/
 
 # Se agrupa la carpeta "Artificial"
-tar -cvf Respaldo/Artificial.tar -C Respaldo Artificial
+tar -cvf Respaldo/Artificial.tar -C Respaldo/Artificial .
 
 # Se comprime el archivo agrupado
 zip Respaldo/Artificial.tar.zip Respaldo/Artificial.tar
